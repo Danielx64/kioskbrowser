@@ -7,17 +7,34 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
+using System.Threading;
 
 namespace WebView2WindowsFormsBrowser
 {
     public partial class BrowserForm : Form
     {
+        static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
+
         public BrowserForm()
         {
-            InitializeComponent();
-            InitializeBrowser();
-            AttachControlEventHandlers(this.webView2Control);
-            HandleResize();
+            if (mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                try
+                {
+                    InitializeComponent();
+                    InitializeBrowser();
+                    AttachControlEventHandlers(this.webView2Control);
+                    HandleResize();
+                }
+                finally
+                {
+                    mutex.ReleaseMutex();
+                }
+            }
+            else
+            {
+                MessageBox.Show("only one instance at a time");
+            }
         }
         private async void InitializeBrowser()
         {
@@ -33,15 +50,14 @@ namespace WebView2WindowsFormsBrowser
             var args = "";
             if (Environment.GetCommandLineArgs().Length > 1)
             {
-               args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-               this.webView2Control.Source = new System.Uri($"{args}", System.UriKind.Absolute);
+                args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+                this.webView2Control.Source = new System.Uri($"{args}", System.UriKind.Absolute);
 
             }
             else
             {
                 this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
             }
-           // this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
         }
         private void UpdateTitleWithEvent(string message)
         {
@@ -80,7 +96,8 @@ namespace WebView2WindowsFormsBrowser
             UpdateTitleWithEvent("CoreWebView2InitializationCompleted succeeded");
         }
 
-        void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control) {
+        void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
+        {
             control.CoreWebView2InitializationCompleted += WebView2Control_CoreWebView2InitializationCompleted;
             control.NavigationStarting += WebView2Control_NavigationStarting;
             control.NavigationCompleted += WebView2Control_NavigationCompleted;
@@ -122,7 +139,7 @@ namespace WebView2WindowsFormsBrowser
             else
             {
                 // Otherwise treat it as a web search.
-                uri = new Uri("https://bing.com/search?q=" + 
+                uri = new Uri("https://bing.com/search?q=" +
                     String.Join("+", Uri.EscapeDataString(rawUrl).Split(new string[] { "%20" }, StringSplitOptions.RemoveEmptyEntries)));
             }
 
@@ -145,7 +162,7 @@ namespace WebView2WindowsFormsBrowser
             // Resize the webview
             webView2Control.Size = this.ClientSize - new System.Drawing.Size(webView2Control.Location);
 
- 
+
         }
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {
