@@ -34,26 +34,15 @@ namespace WebView2WindowsFormsBrowser
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnEvents = new System.Windows.Forms.Button();
             this.btnGo = new System.Windows.Forms.Button();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.webView2Control = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((System.ComponentModel.ISupportInitialize)(this.webView2Control)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnEvents
-            // 
-            this.btnEvents.Location = new System.Drawing.Point(788, 25);
-            this.btnEvents.Name = "btnEvents";
-            this.btnEvents.Size = new System.Drawing.Size(75, 23);
-            this.btnEvents.TabIndex = 6;
-            this.btnEvents.Text = "Events";
-            this.btnEvents.UseVisualStyleBackColor = true;
-            this.btnEvents.Click += new System.EventHandler(this.btnEvents_Click);
-            // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(713, 25);
+            this.btnGo.Location = new System.Drawing.Point(400, 10);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 23);
             this.btnGo.TabIndex = 5;
@@ -63,7 +52,7 @@ namespace WebView2WindowsFormsBrowser
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(336, 25);
+            this.txtUrl.Location = new System.Drawing.Point(23, 12);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(371, 20);
             this.txtUrl.TabIndex = 4;
@@ -90,7 +79,6 @@ namespace WebView2WindowsFormsBrowser
             this.Controls.Add(this.webView2Control);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.txtUrl);
-            this.Controls.Add(this.btnEvents);
             this.Name = "BrowserForm";
             this.Text = "BrowserForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
@@ -101,7 +89,6 @@ namespace WebView2WindowsFormsBrowser
 
         }
         #endregion
-        private System.Windows.Forms.Button btnEvents;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.TextBox txtUrl;
 

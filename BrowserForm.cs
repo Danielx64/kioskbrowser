@@ -117,10 +117,6 @@ namespace WebView2WindowsFormsBrowser
         }
 
 
-        private void btnEvents_Click(object sender, EventArgs e)
-        {
-            (new EventMonitor(this.webView2Control)).Show(this);
-        }
 
 
         private void Form_Resize(object sender, EventArgs e)
@@ -136,13 +132,7 @@ namespace WebView2WindowsFormsBrowser
             // Resize the webview
             webView2Control.Size = this.ClientSize - new System.Drawing.Size(webView2Control.Location);
 
-            // Move the Events button
-            btnEvents.Left = this.ClientSize.Width - btnEvents.Width;
-            // Move the Go button
-            btnGo.Left = this.btnEvents.Left - btnGo.Size.Width;
-
-            // Resize the URL textbox
-            txtUrl.Width = btnGo.Left - txtUrl.Left;
+ 
         }
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {

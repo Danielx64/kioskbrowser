@@ -5,8 +5,5 @@
     <Compile Update="BrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="EventMonitor.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
