@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net462</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Company>Microsoft</Company>
+    <Authors>Hybrid Application Team</Authors>
+    <Copyright>Copyright ©2020</Copyright>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Configurations>Debug;Release;Win7 Release;Win7 Debug</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1248-prerelease" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="assets\EdgeWebView2-80.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>  
+</Project>
