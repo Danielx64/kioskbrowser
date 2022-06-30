@@ -5,6 +5,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
 
 namespace WebView2WindowsFormsBrowser
@@ -28,7 +29,19 @@ namespace WebView2WindowsFormsBrowser
             };
             var webView2Environment = Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, userDataFolder, options).Result;
             this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
-            this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
+
+            var args = "";
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+               args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+               this.webView2Control.Source = new System.Uri($"{args}", System.UriKind.Absolute);
+
+            }
+            else
+            {
+                this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
+            }
+           // this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
         }
         private void UpdateTitleWithEvent(string message)
         {
