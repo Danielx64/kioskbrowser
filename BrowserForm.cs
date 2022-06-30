@@ -50,7 +50,6 @@ namespace WebView2WindowsFormsBrowser
             }
 
             this.webView2Control.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
-            this.webView2Control.CoreWebView2.HistoryChanged += CoreWebView2_HistoryChanged;
             this.webView2Control.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
             this.webView2Control.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.Image);
             UpdateTitleWithEvent("CoreWebView2InitializationCompleted succeeded");
@@ -61,32 +60,9 @@ namespace WebView2WindowsFormsBrowser
             control.NavigationStarting += WebView2Control_NavigationStarting;
             control.NavigationCompleted += WebView2Control_NavigationCompleted;
             control.SourceChanged += WebView2Control_SourceChanged;
-            control.KeyDown += WebView2Control_KeyDown;
-            control.KeyUp += WebView2Control_KeyUp;
+
         }
 
-        private void WebView2Control_KeyUp(object sender, KeyEventArgs e)
-        {
-            UpdateTitleWithEvent($"AcceleratorKeyUp key={e.KeyCode}");
-            if (!this.acceleratorKeysEnabledToolStripMenuItem.Checked)
-                e.Handled = true;
-        }
-
-        private void WebView2Control_KeyDown(object sender, KeyEventArgs e)
-        {
-            UpdateTitleWithEvent($"AcceleratorKeyDown key={e.KeyCode}");
-            if (!this.acceleratorKeysEnabledToolStripMenuItem.Checked)
-                e.Handled = true;
-        }
-
-        private void CoreWebView2_HistoryChanged(object sender, object e)
-        {
-            // No explicit check for webView2Control initialization because the events can only start
-            // firing after the CoreWebView2 and its events exist for us to subscribe.
-            btnBack.Enabled = webView2Control.CoreWebView2.CanGoBack;
-            btnForward.Enabled = webView2Control.CoreWebView2.CanGoForward;
-            UpdateTitleWithEvent("HistoryChanged");
-        }
 
         private void CoreWebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
         {
@@ -178,10 +154,7 @@ namespace WebView2WindowsFormsBrowser
             this.webView2Control.DefaultBackgroundColor = backgroundColor;
         }
 
-        private void allowExternalDropMenuItem_Click(object sender, EventArgs e)
-        {
-            this.webView2Control.AllowExternalDrop = this.allowExternalDropMenuItem.Checked;
-        }
+
         #endregion
 
         private void HandleResize()
