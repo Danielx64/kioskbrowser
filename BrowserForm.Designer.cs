@@ -93,6 +93,7 @@ namespace WebView2WindowsFormsBrowser
             this.Controls.Add(this.btnEvents);
             this.Name = "BrowserForm";
             this.Text = "BrowserForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
             this.Resize += new System.EventHandler(this.Form_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.webView2Control)).EndInit();
             this.ResumeLayout(false);

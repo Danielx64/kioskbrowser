@@ -144,5 +144,10 @@ namespace WebView2WindowsFormsBrowser
             // Resize the URL textbox
             txtUrl.Width = btnGo.Left - txtUrl.Left;
         }
+        private void Form1_Closing(object sender, FormClosingEventArgs e)
+        {
+            webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
+            return;
+        }
     }
 }
