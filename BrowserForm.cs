@@ -14,10 +14,22 @@ namespace WebView2WindowsFormsBrowser
         public BrowserForm()
         {
             InitializeComponent();
+            InitializeBrowser();
             AttachControlEventHandlers(this.webView2Control);
             HandleResize();
         }
-
+        private async void InitializeBrowser()
+        {
+            var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
+            var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
+            {
+                AdditionalBrowserArguments = "--user-agent=\"kioskbrowser\"",
+                AllowSingleSignOnUsingOSPrimaryAccount = true
+            };
+            var webView2Environment = Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, userDataFolder, options).Result;
+            this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
+            this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
+        }
         private void UpdateTitleWithEvent(string message)
         {
             string currentDocumentTitle = this.webView2Control?.CoreWebView2?.DocumentTitle ?? "Uninitialized";

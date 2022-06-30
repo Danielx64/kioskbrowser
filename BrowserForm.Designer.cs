@@ -123,7 +123,7 @@ namespace WebView2WindowsFormsBrowser
             this.webView2Control.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.webView2Control.Name = "webView2Control";
             this.webView2Control.Size = new System.Drawing.Size(394, 213);
-            this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
+           // this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
             this.webView2Control.TabIndex = 7;
             this.webView2Control.ZoomFactor = 1D;
             // 
