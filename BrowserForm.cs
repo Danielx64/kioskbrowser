@@ -34,6 +34,7 @@ namespace WebView2WindowsFormsBrowser
             else
             {
                 MessageBox.Show("only one instance at a time");
+                Environment.Exit(0);
             }
         }
         private async void InitializeBrowser()
