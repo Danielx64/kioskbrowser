@@ -35,10 +35,6 @@ namespace WebView2WindowsFormsBrowser
         private void InitializeComponent()
         {
             this.btnEvents = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnForward = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
             this.btnGo = new System.Windows.Forms.Button();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.webView2Control = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -54,47 +50,6 @@ namespace WebView2WindowsFormsBrowser
             this.btnEvents.Text = "Events";
             this.btnEvents.UseVisualStyleBackColor = true;
             this.btnEvents.Click += new System.EventHandler(this.btnEvents_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Enabled = false;
-            this.btnBack.Location = new System.Drawing.Point(12, 25);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 0;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnForward
-            // 
-            this.btnForward.Enabled = false;
-            this.btnForward.Location = new System.Drawing.Point(93, 25);
-            this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(75, 23);
-            this.btnForward.TabIndex = 1;
-            this.btnForward.Text = "Forward";
-            this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(174, 25);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 2;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Location = new System.Drawing.Point(255, 25);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 3;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
             // 
             // btnGo
             // 
@@ -120,10 +75,9 @@ namespace WebView2WindowsFormsBrowser
             this.webView2Control.CreationProperties = null;
             this.webView2Control.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webView2Control.Location = new System.Drawing.Point(0, 50);
-            this.webView2Control.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webView2Control.Margin = new System.Windows.Forms.Padding(2);
             this.webView2Control.Name = "webView2Control";
             this.webView2Control.Size = new System.Drawing.Size(394, 213);
-           // this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
             this.webView2Control.TabIndex = 7;
             this.webView2Control.ZoomFactor = 1D;
             // 
@@ -136,10 +90,6 @@ namespace WebView2WindowsFormsBrowser
             this.Controls.Add(this.webView2Control);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.txtUrl);
-            this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnForward);
-            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnEvents);
             this.Name = "BrowserForm";
             this.Text = "BrowserForm";
@@ -151,10 +101,6 @@ namespace WebView2WindowsFormsBrowser
         }
         #endregion
         private System.Windows.Forms.Button btnEvents;
-        private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Button btnForward;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.TextBox txtUrl;
 

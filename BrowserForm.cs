@@ -90,10 +90,7 @@ namespace WebView2WindowsFormsBrowser
         #endregion
 
         #region UI event handlers
-        private void BtnRefresh_Click(object sender, EventArgs e)
-        {
-            webView2Control.Reload();
-        }
+
 
         private void BtnGo_Click(object sender, EventArgs e)
         {
@@ -119,20 +116,12 @@ namespace WebView2WindowsFormsBrowser
             webView2Control.Source = uri;
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            webView2Control.GoBack();
-        }
 
         private void btnEvents_Click(object sender, EventArgs e)
         {
             (new EventMonitor(this.webView2Control)).Show(this);
         }
 
-        private void btnForward_Click(object sender, EventArgs e)
-        {
-            webView2Control.GoForward();
-        }
 
         private void Form_Resize(object sender, EventArgs e)
         {
