@@ -127,33 +127,6 @@ namespace WebView2WindowsFormsBrowser
             HandleResize();
         }
 
-        private void xToolStripMenuItem05_Click(object sender, EventArgs e)
-        {
-            this.webView2Control.ZoomFactor = 0.5;
-        }
-
-        private void xToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.webView2Control.ZoomFactor = 1.0;
-        }
-
-        private void xToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            this.webView2Control.ZoomFactor = 2.0;
-        }
-
-        private void xToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"Zoom factor: {this.webView2Control.ZoomFactor}", "WebView Zoom factor");
-        }
-
-        private void backgroundColorMenuItem_Click(object sender, EventArgs e)
-        {
-            var menuItem = (ToolStripMenuItem)sender;
-            Color backgroundColor = Color.FromName(menuItem.Text);
-            this.webView2Control.DefaultBackgroundColor = backgroundColor;
-        }
-
 
         #endregion
 
