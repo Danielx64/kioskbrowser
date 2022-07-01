@@ -7,35 +7,20 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
-using System.Threading;
 
 namespace WebView2WindowsFormsBrowser
 {
     public partial class BrowserForm : Form
     {
-        static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
 
         public BrowserForm()
         {
-            if (mutex.WaitOne(TimeSpan.Zero, true))
-            {
-                try
-                {
+
                     InitializeComponent();
                     InitializeBrowser();
                     AttachControlEventHandlers(this.webView2Control);
                     HandleResize();
-                }
-                finally
-                {
-                    mutex.ReleaseMutex();
-                }
-            }
-            else
-            {
-                MessageBox.Show("only one instance at a time");
-                Environment.Exit(0);
-            }
+
         }
         private async void InitializeBrowser()
         {
