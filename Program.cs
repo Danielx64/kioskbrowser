@@ -7,36 +7,36 @@ using System.Windows.Forms;
 using System.Threading;
 namespace WebView2WindowsFormsBrowser
 {
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-       static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
+	static class Program
+	{
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+	   static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
 
-        [STAThread]
+		[STAThread]
 
-        static void Main()
-        {
+		static void Main()
+		{
 
-            if (mutex.WaitOne(TimeSpan.Zero, true))
-            {
-                try
-                {
-                    Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BrowserForm());
-        }
-                finally
-                {
-                    mutex.ReleaseMutex();
-                }
+			if (mutex.WaitOne(TimeSpan.Zero, true))
+			{
+				try
+				{
+					Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.Run(new BrowserForm());
+		}
+				finally
+				{
+					mutex.ReleaseMutex();
+				}
 }
-            else
+			else
 {
-    MessageBox.Show("only one instance at a time");
-    Environment.Exit(0);
+	MessageBox.Show("only one instance at a time");
+	Environment.Exit(0);
 }
-        }
-    }
+		}
+	}
 }
