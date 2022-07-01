@@ -60,64 +60,21 @@ namespace WebView2WindowsFormsBrowser
                 this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
             }
         }
-        private void UpdateTitleWithEvent(string message)
-        {
-            string currentDocumentTitle = this.webView2Control?.CoreWebView2?.DocumentTitle ?? "Uninitialized";
-            this.Text = currentDocumentTitle + " (" + message + ")";
-        }
+
 
         #region Event Handlers
-        private void WebView2Control_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
-        {
-            UpdateTitleWithEvent("NavigationStarting");
-        }
 
-        private void WebView2Control_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
-        {
-            UpdateTitleWithEvent("NavigationCompleted");
-        }
 
         private void WebView2Control_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
         {
             txtUrl.Text = webView2Control.Source.AbsoluteUri;
         }
 
-        private void WebView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
-        {
-            if (!e.IsSuccess)
-            {
-                MessageBox.Show($"WebView2 creation failed with exception = {e.InitializationException}");
-                UpdateTitleWithEvent("CoreWebView2InitializationCompleted failed");
-                return;
-            }
-
-            this.webView2Control.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
-            this.webView2Control.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
-            this.webView2Control.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.Image);
-            UpdateTitleWithEvent("CoreWebView2InitializationCompleted succeeded");
-        }
-
         void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
         {
-            control.CoreWebView2InitializationCompleted += WebView2Control_CoreWebView2InitializationCompleted;
-            control.NavigationStarting += WebView2Control_NavigationStarting;
-            control.NavigationCompleted += WebView2Control_NavigationCompleted;
             control.SourceChanged += WebView2Control_SourceChanged;
-
         }
 
-
-        private void CoreWebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
-        {
-            this.txtUrl.Text = this.webView2Control.Source.AbsoluteUri;
-            UpdateTitleWithEvent("SourceChanged");
-        }
-
-        private void CoreWebView2_DocumentTitleChanged(object sender, object e)
-        {
-            this.Text = this.webView2Control.CoreWebView2.DocumentTitle;
-            UpdateTitleWithEvent("DocumentTitleChanged");
-        }
         #endregion
 
         #region UI event handlers
@@ -146,9 +103,6 @@ namespace WebView2WindowsFormsBrowser
 
             webView2Control.Source = uri;
         }
-
-
-
 
         private void Form_Resize(object sender, EventArgs e)
         {
