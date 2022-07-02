@@ -59,9 +59,9 @@ namespace WebView2WindowsFormsBrowser
 			{
 				return;
 			}
-			this.txtUrl.Text = "https://www.google.com/";
 			MessageBox.Show("file changed");
-			webView2Control.Source = new Uri(this.txtUrl.Text);
+			this.txtUrl.Text = "https://www.google.com/";
+		//	webView2Control.Source = new Uri("https://www.google.com/");
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{

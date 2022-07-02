@@ -46,7 +46,7 @@ namespace WebView2WindowsFormsBrowser
             this.txtUrl.Size = new System.Drawing.Size(371, 20);
             this.txtUrl.TabIndex = 4;
             this.txtUrl.Text = "https://www.bing.com/";
-          //  this.txtUrl.TextChanged += new System.EventHandler(this.BtnGo_Click);
+          this.txtUrl.TextChanged += new System.EventHandler(this.BtnGo_Click);
             // 
             // webView2Control
             // 
