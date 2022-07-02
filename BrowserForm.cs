@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
-
+using System.IO;
 namespace WebView2WindowsFormsBrowser
 {
 	public partial class BrowserForm : Form
@@ -50,12 +50,32 @@ namespace WebView2WindowsFormsBrowser
 
 		private void WebView2Control_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
 		{
-			txtUrl.Text = webView2Control.Source.AbsoluteUri;
+		//	txtUrl.Text = webView2Control.Source.AbsoluteUri;
 		}
 
+		private  void OnChanged(object sender, FileSystemEventArgs e)
+		{
+			if (e.ChangeType != WatcherChangeTypes.Changed)
+			{
+				return;
+			}
+			this.txtUrl.Text = "https://www.google.com/";
+			MessageBox.Show("file changed");
+			webView2Control.Source = new Uri(this.txtUrl.Text);
+		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
-			control.SourceChanged += WebView2Control_SourceChanged;
+			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
+
+			var watcher = new FileSystemWatcher($"{userDataFolder}");
+
+			watcher.NotifyFilter = NotifyFilters.LastWrite;
+
+			watcher.Changed += OnChanged;
+
+			watcher.Filter = "temp.txt";
+			watcher.IncludeSubdirectories = false;
+			watcher.EnableRaisingEvents = true;
 		}
 
 		#endregion
