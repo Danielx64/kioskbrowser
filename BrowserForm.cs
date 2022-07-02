@@ -60,11 +60,12 @@ namespace WebView2WindowsFormsBrowser
 				return;
 			}
 			MessageBox.Show("file changed");
-			this.txtUrl.Text = "https://www.google.com/";
-		//	webView2Control.Source = new Uri("https://www.google.com/");
+			//this.txtUrl.Text = "https://www.google.com/";
+			webView2Control.Source = new Uri("https://www.google.com/");
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
+
 			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
 
 			var watcher = new FileSystemWatcher($"{userDataFolder}");
@@ -76,6 +77,7 @@ namespace WebView2WindowsFormsBrowser
 			watcher.Filter = "temp.txt";
 			watcher.IncludeSubdirectories = false;
 			watcher.EnableRaisingEvents = true;
+			watcher.SynchronizingObject = this;
 		}
 
 		#endregion
