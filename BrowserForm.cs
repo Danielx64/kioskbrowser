@@ -85,29 +85,6 @@ namespace WebView2WindowsFormsBrowser
 		#region UI event handlers
 
 
-		private void BtnGo_Click(object sender, EventArgs e)
-		{
-			var rawUrl = txtUrl.Text;
-			Uri uri = null;
-
-			if (Uri.IsWellFormedUriString(rawUrl, UriKind.Absolute))
-			{
-				uri = new Uri(rawUrl);
-			}
-			else if (!rawUrl.Contains(" ") && rawUrl.Contains("."))
-			{
-				// An invalid URI contains a dot and no spaces, try tacking http:// on the front.
-				uri = new Uri("http://" + rawUrl);
-			}
-			else
-			{
-				// Otherwise treat it as a web search.
-				uri = new Uri("https://bing.com/search?q=" +
-					String.Join("+", Uri.EscapeDataString(rawUrl).Split(new string[] { "%20" }, StringSplitOptions.RemoveEmptyEntries)));
-			}
-
-			webView2Control.Source = uri;
-		}
 
 		private void Form_Resize(object sender, EventArgs e)
 		{
