@@ -10,13 +10,7 @@ using Microsoft.Web.WebView2.Core;
 using System.IO;
 namespace WebView2WindowsFormsBrowser
 {
-	public static class Globals
-	{
-		public static readonly String APP_ID = "your app id"; // Unmodifiable
-		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
-		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "tenantId=" + TENANT_ID + "&"; // Unmodifiable
-		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
-	}
+
 	public partial class BrowserForm : Form
 	{
 
@@ -61,7 +55,7 @@ namespace WebView2WindowsFormsBrowser
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 			using (StreamReader inputFile = new StreamReader(filePath))
 			{
-				webView2Control.Source = new Uri($"{Globals.BASE_URL}"+ inputFile.ReadToEnd());
+				webView2Control.Source = new Uri($"{Globals.BASE_URL}"+inputFile.ReadToEnd());
 			}
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
@@ -105,5 +99,12 @@ namespace WebView2WindowsFormsBrowser
 			webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 			return;
 		}
+	}
+	public static class Globals
+	{
+		public static readonly String APP_ID = "your app id"; // Unmodifiable
+		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
+		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "tenantId=" + TENANT_ID + "&"; // Unmodifiable
+		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
 	}
 }
