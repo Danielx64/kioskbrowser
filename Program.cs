@@ -3,8 +3,10 @@
 // found in the LICENSE file.
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using System.Threading;
+using System.Text.RegularExpressions;
 namespace WebView2WindowsFormsBrowser
 {
 	static class Program
@@ -12,7 +14,7 @@ namespace WebView2WindowsFormsBrowser
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-	   static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
+		static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
 
 		[STAThread]
 
@@ -24,19 +26,28 @@ namespace WebView2WindowsFormsBrowser
 				try
 				{
 					Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new BrowserForm());
-		}
+					Application.SetCompatibleTextRenderingDefault(false);
+					Application.Run(new BrowserForm());
+				}
 				finally
 				{
 					mutex.ReleaseMutex();
 				}
-}
+			}
 			else
-{
-	MessageBox.Show("only one instance at a time");
-	Environment.Exit(0);
-}
+			{
+				var args = "";
+
+				string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
+				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+
+				using (StreamWriter outputFile = new StreamWriter(filePath))
+				{
+					outputFile.WriteLine(args);
+				}
+
+				Environment.Exit(0);
+			}
 		}
 	}
 }
