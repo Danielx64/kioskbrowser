@@ -14,13 +14,12 @@ namespace WebView2WindowsFormsBrowser
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
+		static Mutex mutex = new Mutex(true, "{80CC4814-C89F-4B65-AAB0-0FB8BEF8AFE6}");
 
 		[STAThread]
 
 		static void Main()
 		{
-
 			if (mutex.WaitOne(TimeSpan.Zero, true))
 			{
 				try
