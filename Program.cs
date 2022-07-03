@@ -12,16 +12,18 @@ namespace WebView2WindowsFormsBrowser
 	public static class Globals
 	{
 		public static readonly String APP_ID = "your app id"; // Unmodifiable
+		public static readonly String APP_FOLDER_NAME = "your app folder name"; // Unmodifiable
+		public static readonly String APP_NAME = "your app name"; // Unmodifiable
 		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
 		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "tenantId=" + TENANT_ID + "&"; // Unmodifiable
-		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
+		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
 	}
 	static class Program
 	{
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static Mutex mutex = new Mutex(true, $"{{Globals.APP_ID}}");
+		static Mutex mutex = new Mutex(true, $"{Globals.APP_ID}");
 
 		[STAThread]
 

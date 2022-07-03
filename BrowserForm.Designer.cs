@@ -58,7 +58,7 @@ namespace WebView2WindowsFormsBrowser
             this.Controls.Add(this.webView2Control);
             this.Name = "BrowserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BrowserForm";
+            this.Text = Globals.APP_NAME;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
             this.Resize += new System.EventHandler(this.Form_Resize);
