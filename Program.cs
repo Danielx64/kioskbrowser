@@ -14,7 +14,7 @@ namespace WebView2WindowsFormsBrowser
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static Mutex mutex = new Mutex(true, "{80CC4814-C89F-4B65-AAB0-0FB8BEF8AFE6}");
+		static Mutex mutex = new Mutex(true, $"{{Globals.APP_ID}}");
 
 		[STAThread]
 
