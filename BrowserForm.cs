@@ -12,7 +12,14 @@ namespace WebView2WindowsFormsBrowser
 {
 	public partial class BrowserForm : Form
 	{
+		public static class Globals
+		{
+			public static readonly String APP_ID = "your app id"; // Unmodifiable
+			public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
+			public static readonly String BASE_URL = "https://apps.powerapps.com/play/"+APP_ID+ "tenantId="+TENANT_ID+"&"; // Unmodifiable
+			public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
 
+		}
 		public BrowserForm()
 		{
 					InitializeComponent();
@@ -22,25 +29,24 @@ namespace WebView2WindowsFormsBrowser
 		}
 		private async void InitializeBrowser()
 		{
-			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
 			var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
 			{
 				AdditionalBrowserArguments = "--user-agent=\"kioskbrowser\"",
 				AllowSingleSignOnUsingOSPrimaryAccount = true
 			};
-			var webView2Environment = Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, userDataFolder, options).Result;
+			var webView2Environment = Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
 			this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
 
 			var args = "";
 			if (Environment.GetCommandLineArgs().Length > 1)
 			{
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-				this.webView2Control.Source = new System.Uri($"{args}", System.UriKind.Absolute);
+				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
 
 			}
 			else
 			{
-				this.webView2Control.Source = new System.Uri("https://www.bing.com/", System.UriKind.Absolute);
+				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
 			}
 		}
 
@@ -59,16 +65,14 @@ namespace WebView2WindowsFormsBrowser
 			{
 				return;
 			}
-			MessageBox.Show("file changed");
-			//this.txtUrl.Text = "https://www.google.com/";
-			webView2Control.Source = new Uri("https://www.google.com/");
+			//MessageBox.Show("file changed");
+
+			webView2Control.Source = new Uri($"{Globals.BASE_URL}test");
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
 
-			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "kioskbrowser");
-
-			var watcher = new FileSystemWatcher($"{userDataFolder}");
+			var watcher = new FileSystemWatcher($"{Globals.USER_DATA_FOLDER}");
 
 			watcher.NotifyFilter = NotifyFilters.LastWrite;
 
