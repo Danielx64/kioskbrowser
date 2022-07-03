@@ -50,14 +50,7 @@ namespace WebView2WindowsFormsBrowser
 			}
 		}
 
-
 		#region Event Handlers
-
-
-		private void WebView2Control_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
-		{
-		//	txtUrl.Text = webView2Control.Source.AbsoluteUri;
-		}
 
 		private  void OnChanged(object sender, FileSystemEventArgs e)
 		{
@@ -65,9 +58,11 @@ namespace WebView2WindowsFormsBrowser
 			{
 				return;
 			}
-			//MessageBox.Show("file changed");
-
-			webView2Control.Source = new Uri($"{Globals.BASE_URL}");
+			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
+			using (StreamReader inputFile = new StreamReader(filePath))
+			{
+				webView2Control.Source = new Uri($"{Globals.BASE_URL}"+ inputFile.ReadToEnd());
+			}
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
