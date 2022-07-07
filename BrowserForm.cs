@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
 using System.IO;
+using Microsoft.Web.WebView2.WinForms;
+
 namespace WebView2WindowsFormsBrowser
 {
 
@@ -25,10 +27,12 @@ namespace WebView2WindowsFormsBrowser
 		{
 			var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
 			{
-				AdditionalBrowserArguments = "--user-agent=\"kioskbrowser\"",
-				AllowSingleSignOnUsingOSPrimaryAccount = true
+			//	AdditionalBrowserArguments = "--user-agent=\"kioskbrowser\"",
+				AllowSingleSignOnUsingOSPrimaryAccount = true,
+
 			};
-			var webView2Environment = Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
+			var webView2Environment = CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
+
 			this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
 
 			var args = "";
@@ -36,10 +40,11 @@ namespace WebView2WindowsFormsBrowser
 			{
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
 				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
-
+				
 			}
 			else
 			{
+
 				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
 			}
 		}
@@ -91,13 +96,20 @@ namespace WebView2WindowsFormsBrowser
 		{
 			// Resize the webview
 			webView2Control.Size = this.ClientSize - new System.Drawing.Size(webView2Control.Location);
-
-
 		}
 		private void Form1_Closing(object sender, FormClosingEventArgs e)
 		{
 			webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 			return;
+		}
+
+		private void webView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
+		{
+			this.webView2Control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.AreDevToolsEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.IsStatusBarEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.UserAgent = "Test";
+			this.webView2Control.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 		}
 	}
 

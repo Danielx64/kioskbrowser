@@ -46,15 +46,16 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.Location = new System.Drawing.Point(0, 0);
 			this.webView2Control.Margin = new System.Windows.Forms.Padding(2);
 			this.webView2Control.Name = "webView2Control";
-			this.webView2Control.Size = new System.Drawing.Size(793, 454);
+			this.webView2Control.Size = new System.Drawing.Size(925, 524);
 			this.webView2Control.TabIndex = 7;
 			this.webView2Control.ZoomFactor = 1D;
+			this.webView2Control.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.webView2Control_CoreWebView2InitializationCompleted);
 			// 
 			// BrowserForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(790, 450);
+			this.ClientSize = new System.Drawing.Size(922, 519);
 			this.Controls.Add(this.webView2Control);
 			this.Name = "BrowserForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
