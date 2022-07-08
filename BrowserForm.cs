@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
 using System.IO;
 using Microsoft.Web.WebView2.WinForms;
+using System.Threading;
 
 namespace WebView2WindowsFormsBrowser
 {
@@ -23,17 +24,15 @@ namespace WebView2WindowsFormsBrowser
 					AttachControlEventHandlers(this.webView2Control);
 					HandleResize();
 		}
-		private async void InitializeBrowser()
+		private void InitializeBrowser()
 		{
 			var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
 			{
-			//	AdditionalBrowserArguments = "--user-agent=\"kioskbrowser\"",
 				AllowSingleSignOnUsingOSPrimaryAccount = true,
-
 			};
 			var webView2Environment = CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
 
-			this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
+			_ = this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
 
 			var args = "";
 			if (Environment.GetCommandLineArgs().Length > 1)
@@ -51,6 +50,8 @@ namespace WebView2WindowsFormsBrowser
 
 		private  void OnChanged(object sender, FileSystemEventArgs e)
 		{
+			var milliseconds = 100;
+			Thread.Sleep(milliseconds);
 			if (e.ChangeType != WatcherChangeTypes.Changed)
 			{
 				return;
@@ -63,13 +64,9 @@ namespace WebView2WindowsFormsBrowser
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
-
 			var watcher = new FileSystemWatcher($"{Globals.USER_DATA_FOLDER}");
-
 			watcher.NotifyFilter = NotifyFilters.LastWrite;
-
 			watcher.Changed += OnChanged;
-
 			watcher.Filter = "temp.txt";
 			watcher.IncludeSubdirectories = false;
 			watcher.EnableRaisingEvents = true;
@@ -80,13 +77,10 @@ namespace WebView2WindowsFormsBrowser
 
 		#region UI event handlers
 
-
-
 		private void Form_Resize(object sender, EventArgs e)
 		{
 			HandleResize();
 		}
-
 
 		#endregion
 
@@ -113,5 +107,4 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
 		}
 	}
-
 }
