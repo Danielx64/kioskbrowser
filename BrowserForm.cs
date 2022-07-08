@@ -40,11 +40,9 @@ namespace WebView2WindowsFormsBrowser
 			{
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
 				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
-				
 			}
 			else
 			{
-
 				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
 			}
 		}
@@ -103,13 +101,16 @@ namespace WebView2WindowsFormsBrowser
 			return;
 		}
 
-		private void webView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
+		private void WebView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
 		{
 			this.webView2Control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreDevToolsEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.IsStatusBarEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.UserAgent = "Test";
 			this.webView2Control.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+			this.webView2Control.CoreWebView2.Settings.IsWebMessageEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
 		}
 	}
 
