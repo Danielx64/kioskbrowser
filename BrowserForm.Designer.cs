@@ -49,7 +49,7 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.Size = new System.Drawing.Size(925, 524);
 			this.webView2Control.TabIndex = 7;
 			this.webView2Control.ZoomFactor = 1D;
-			this.webView2Control.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.webView2Control_CoreWebView2InitializationCompleted);
+			this.webView2Control.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.WebView2Control_CoreWebView2InitializationCompleted);
 			// 
 			// BrowserForm
 			// 
