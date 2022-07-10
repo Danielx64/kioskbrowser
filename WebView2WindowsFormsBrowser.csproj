@@ -6,7 +6,6 @@
 	<Company>Microsoft</Company>
 	<Authors>Hybrid Application Team</Authors>
 	<Copyright>Copyright ©2020</Copyright>
-	  <ApplicationManifest>app.manifest</ApplicationManifest>
 	<Configurations>Debug;Release;Win7 Release;Win7 Debug</Configurations>
 	<StartupObject>WebView2WindowsFormsBrowser.Program</StartupObject>
 	<NeutralLanguage>en-AU</NeutralLanguage>
@@ -100,9 +99,6 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
-	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1264.42" />
-  </ItemGroup>
-  <ItemGroup>
 	<Compile Update="Properties\Resources.Designer.cs">
 	  <DesignTime>True</DesignTime>
 	  <AutoGen>True</AutoGen>
@@ -117,5 +113,8 @@
   </ItemGroup>
   <ItemGroup>
 	<Folder Include="assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1245.22" />
   </ItemGroup>  
 </Project>
