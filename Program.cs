@@ -7,6 +7,14 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Reflection;
+
+[assembly: AssemblyTitle("Your app name here")]
+//[assembly: AssemblyProduct("1.0.0.0")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Your company here")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright ©2022")]
+
+
 namespace WebView2WindowsFormsBrowser
 {
 	public static class Globals
