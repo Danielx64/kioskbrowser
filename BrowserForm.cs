@@ -95,16 +95,22 @@ namespace WebView2WindowsFormsBrowser
 			return;
 		}
 
+		private void CoreWebView2_NewWindowRequested(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs e)
+		{
+			e.NewWindow = webView2Control.CoreWebView2;
+		}
+
 		private void WebView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
 		{
 			this.webView2Control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreDevToolsEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.IsStatusBarEnabled = false;
-			this.webView2Control.CoreWebView2.Settings.UserAgent = "Test";
+			this.webView2Control.CoreWebView2.Settings.UserAgent = $"{Globals.APP_USERAGENT}";
 			this.webView2Control.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreHostObjectsAllowed = false;
 			this.webView2Control.CoreWebView2.Settings.IsWebMessageEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+			this.webView2Control.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
 		}
 	}
 }
