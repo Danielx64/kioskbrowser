@@ -92,8 +92,7 @@ namespace WebView2WindowsFormsBrowser
 		}
 		private void Form1_Closing(object sender, FormClosingEventArgs e)
 		{
-            //webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
-            _ = ClearAutofillData1Async();
+			webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 			return;
 		}
 
@@ -112,26 +111,9 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.CoreWebView2.Settings.AreHostObjectsAllowed = false;
 			this.webView2Control.CoreWebView2.Settings.IsWebMessageEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
 			this.webView2Control.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-		}
-
-
-		// Clears cache data
-		private async Task ClearAutofillData1Async()
-		{
-			CoreWebView2Profile profile;
-			if (this.webView2Control.CoreWebView2 != null)
-			{
-				profile = this.webView2Control.CoreWebView2.Profile;
-
-				CoreWebView2BrowsingDataKinds dataKinds = (CoreWebView2BrowsingDataKinds)
-										 (CoreWebView2BrowsingDataKinds.GeneralAutofill |
-									  CoreWebView2BrowsingDataKinds.PasswordAutosave |
-									  CoreWebView2BrowsingDataKinds.AllDomStorage |
-									  CoreWebView2BrowsingDataKinds.DownloadHistory |
-									  CoreWebView2BrowsingDataKinds.BrowsingHistory);
-			 await profile.ClearBrowsingDataAsync(dataKinds);
-			}
 		}
 	}
 }
