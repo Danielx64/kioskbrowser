@@ -10,7 +10,6 @@ using Microsoft.Web.WebView2.Core;
 using System.IO;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebView2WindowsFormsBrowser
 {

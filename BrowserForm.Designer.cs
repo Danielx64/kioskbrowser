@@ -4,6 +4,7 @@
 
 using System;
 
+
 namespace WebView2WindowsFormsBrowser
 {
 	partial class BrowserForm
