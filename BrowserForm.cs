@@ -13,7 +13,6 @@ using System.Threading;
 
 namespace WebView2WindowsFormsBrowser
 {
-
 	public partial class BrowserForm : Form
 	{
 
