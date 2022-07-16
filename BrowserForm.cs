@@ -37,7 +37,15 @@ namespace WebView2WindowsFormsBrowser
 			if (Environment.GetCommandLineArgs().Length > 1)
 			{
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+				//Add code to check for gpu pram
+				if(args.StartsWith("gpu"))
+				{
+					this.webView2Control.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+				}
+				else
+				{
+					this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+				}
 			}
 			else
 			{
