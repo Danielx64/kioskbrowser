@@ -28,6 +28,7 @@ namespace WebView2WindowsFormsBrowser
 			var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
 			{
 				AllowSingleSignOnUsingOSPrimaryAccount = true,
+				Language = $"{Globals.APP_REQUEST_LANG}",
 			};
 			var webView2Environment = CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
 
@@ -99,7 +100,6 @@ namespace WebView2WindowsFormsBrowser
 		private void Form1_Closing(object sender, FormClosingEventArgs e)
 		{
 			webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
-			return;
 		}
 
 		private void CoreWebView2_NewWindowRequested(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs e)

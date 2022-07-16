@@ -24,6 +24,7 @@ namespace WebView2WindowsFormsBrowser
 		public static readonly String APP_NAME = "your app name"; // Unmodifiable
 		public static readonly String TENANT_ID = "your teant id"; // Unmodifiable
 		public static readonly String APP_USERAGENT = "Your useragent here";
+		public static readonly String APP_REQUEST_LANG = "en-AU";
 		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
 		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
 	}
