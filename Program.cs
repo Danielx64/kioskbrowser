@@ -11,9 +11,8 @@ using System.Reflection;
 
 [assembly: AssemblyTitle("Your app name here")]
 //[assembly: AssemblyProduct("1.0.0.0")]
-[assembly: System.Reflection.AssemblyCompanyAttribute("Your company here")]
-[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright ©2022")]
-
+[assembly: AssemblyCompany("Your company here")]
+[assembly: AssemblyCopyright("Copyright ©2022")]
 
 namespace WebView2WindowsFormsBrowser
 {
@@ -64,7 +63,6 @@ namespace WebView2WindowsFormsBrowser
 				{
 					outputFile.WriteLine(args);
 				}
-
 				Environment.Exit(0);
 			}
 		}

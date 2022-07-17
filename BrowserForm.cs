@@ -20,12 +20,12 @@ namespace WebView2WindowsFormsBrowser
 		{
 					InitializeComponent();
 					InitializeBrowser();
-					AttachControlEventHandlers(this.webView2Control);
+					AttachControlEventHandlers();
 					HandleResize();
 		}
 		private void InitializeBrowser()
 		{
-			var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions
+			var options = new CoreWebView2EnvironmentOptions
 			{
 				AllowSingleSignOnUsingOSPrimaryAccount = true,
 				Language = $"{Globals.APP_REQUEST_LANG}",
@@ -41,16 +41,16 @@ namespace WebView2WindowsFormsBrowser
 				//Add code to check for gpu pram
 				if(args.StartsWith("gpu"))
 				{
-					this.webView2Control.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+					this.webView2Control.Source = new Uri($"edge://gpu", UriKind.Absolute);
 				}
 				else
 				{
-					this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}{args}", System.UriKind.Absolute);
+					this.webView2Control.Source = new Uri($"{Globals.BASE_URL}{args}", UriKind.Absolute);
 				}
 			}
 			else
 			{
-				this.webView2Control.Source = new System.Uri($"{Globals.BASE_URL}", System.UriKind.Absolute);
+				this.webView2Control.Source = new Uri($"{Globals.BASE_URL}", UriKind.Absolute);
 			}
 		}
 
@@ -65,11 +65,11 @@ namespace WebView2WindowsFormsBrowser
 				return;
 			}
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
-			using (StreamReader inputFile = new StreamReader(filePath))
+			using (StreamReader inputFile = new(filePath))
 			{
 				if (inputFile.ReadToEnd().StartsWith("gpu"))
 				{
-					webView2Control.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+					webView2Control.Source = new Uri($"edge://gpu", UriKind.Absolute);
 				}
 				else
 				{
@@ -78,9 +78,10 @@ namespace WebView2WindowsFormsBrowser
 			}
 			this.Activate();
 		}
-		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
+		void AttachControlEventHandlers()
 		{
-			var watcher = new FileSystemWatcher($"{Globals.USER_DATA_FOLDER}");
+            FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
+            var watcher = fileSystemWatcher;
 			watcher.NotifyFilter = NotifyFilters.LastWrite;
 			watcher.Changed += OnChanged;
 			watcher.Filter = "temp.txt";
@@ -103,14 +104,14 @@ namespace WebView2WindowsFormsBrowser
 		private void HandleResize()
 		{
 			// Resize the webview
-			webView2Control.Size = this.ClientSize - new System.Drawing.Size(webView2Control.Location);
+			webView2Control.Size = this.ClientSize - new Size(webView2Control.Location);
 		}
 		private void Form1_Closing(object sender, FormClosingEventArgs e)
 		{
 			webView2Control.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.clearBrowserCache", "{}");
 		}
 
-		private void CoreWebView2_NewWindowRequested(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NewWindowRequestedEventArgs e)
+		private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
 		{
 			e.NewWindow = webView2Control.CoreWebView2;
 		}
