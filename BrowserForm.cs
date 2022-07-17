@@ -67,7 +67,14 @@ namespace WebView2WindowsFormsBrowser
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 			using (StreamReader inputFile = new StreamReader(filePath))
 			{
-				webView2Control.Source = new Uri($"{Globals.BASE_URL}"+inputFile.ReadToEnd());
+				if (inputFile.ReadToEnd().StartsWith("gpu"))
+				{
+					webView2Control.Source = new System.Uri($"edge://gpu", System.UriKind.Absolute);
+				}
+				else
+				{
+					webView2Control.Source = new Uri($"{Globals.BASE_URL}" + inputFile.ReadToEnd());
+				}
 			}
 			this.Activate();
 		}
