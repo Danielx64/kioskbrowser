@@ -69,6 +69,7 @@ namespace WebView2WindowsFormsBrowser
 			{
 				webView2Control.Source = new Uri($"{Globals.BASE_URL}"+inputFile.ReadToEnd());
 			}
+			this.Activate();
 		}
 		void AttachControlEventHandlers(Microsoft.Web.WebView2.WinForms.WebView2 control)
 		{
