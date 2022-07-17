@@ -43,6 +43,7 @@ namespace WebView2WindowsFormsBrowser
 			{
 				try
 				{
+					Application.SetHighDpiMode(HighDpiMode.SystemAware);
 					Application.EnableVisualStyles();
 					Application.SetCompatibleTextRenderingDefault(false);
 					Application.Run(new BrowserForm());
