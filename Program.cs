@@ -26,14 +26,13 @@ namespace WebView2WindowsFormsBrowser
 		public static readonly String APP_REQUEST_LANG = "en-AU";
 		public static readonly String BASE_URL = "https://apps.powerapps.com/play/" + APP_ID + "?tenantId=" + TENANT_ID + "&source=iframe&hidenavbar=true&"; // Unmodifiable
 		public static readonly String USER_DATA_FOLDER = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), APP_FOLDER_NAME);
-		public static readonly String userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 	}
 	static class Program
 	{
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		static Mutex mutex = new Mutex(true, $"{Globals.APP_ID}-{Globals.userName}");
+		static Mutex mutex = new Mutex(true, $"{Globals.APP_ID}");
 
 		[STAThread]
 
