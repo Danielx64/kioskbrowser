@@ -70,13 +70,13 @@ namespace WebView2WindowsFormsBrowser
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 			using (StreamReader inputFile = new(filePath))
 			{
-				if (inputFile.ReadToEnd().StartsWith("gpu"))
+				if (RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
 				{
 					webView2Control.Source = new Uri($"edge://gpu", UriKind.Absolute);
 				}
 				else
 				{
-					webView2Control.Source = new Uri($"{Globals.BASE_URL}" + inputFile.ReadToEnd());
+					webView2Control.Source = new Uri($"{Globals.BASE_URL}" + RemoveSpecialChars(inputFile.ReadToEnd()));
 				}
 			}
 			this.Focus();
