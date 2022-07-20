@@ -30,6 +30,11 @@ namespace WebView2WindowsFormsBrowser
 				AllowSingleSignOnUsingOSPrimaryAccount = true,
 				Language = $"{Globals.APP_REQUEST_LANG}",
 			};
+
+			if (!Directory.Exists(Globals.USER_DATA_FOLDER))
+			{
+				Directory.CreateDirectory(Globals.USER_DATA_FOLDER);
+			}
 			var webView2Environment = CoreWebView2Environment.CreateAsync(null, Globals.USER_DATA_FOLDER, options).Result;
 
 			_ = this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
