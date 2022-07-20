@@ -38,14 +38,15 @@ namespace WebView2WindowsFormsBrowser
 			if (Environment.GetCommandLineArgs().Length > 1)
 			{
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
+				var outString = BrowserForm.RemoveSpecialChars(args);
 				//Add code to check for gpu pram
-				if(args.StartsWith("gpu"))
+				if (outString.StartsWith("gpu"))
 				{
 					this.webView2Control.Source = new Uri($"edge://gpu", UriKind.Absolute);
 				}
 				else
 				{
-					this.webView2Control.Source = new Uri($"{Globals.BASE_URL}{args}", UriKind.Absolute);
+					this.webView2Control.Source = new Uri($"{Globals.BASE_URL}{outString}", UriKind.Absolute);
 				}
 			}
 			else
@@ -81,8 +82,8 @@ namespace WebView2WindowsFormsBrowser
 		}
 		void AttachControlEventHandlers()
 		{
-            FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
-            var watcher = fileSystemWatcher;
+			FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
+			var watcher = fileSystemWatcher;
 			watcher.NotifyFilter = NotifyFilters.LastWrite;
 			watcher.Changed += OnChanged;
 			watcher.Filter = "temp.txt";
@@ -130,6 +131,21 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
 			this.webView2Control.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+		}
+		public static string RemoveSpecialChars(string str)
+		{
+			// Create  a string array and add the special characters you want to remove
+			string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "=", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",","\\"};
+
+			//Iterate the number of times based on the String array length.
+			for (int i = 0; i < chars.Length; i++)
+			{
+				if (str.Contains(chars[i]))
+				{
+					str = str.Replace(chars[i], "");
+				}
+			}
+			return str;
 		}
 	}
 }

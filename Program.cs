@@ -58,10 +58,10 @@ namespace WebView2WindowsFormsBrowser
 
 				string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
 				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-
+				var outString = BrowserForm.RemoveSpecialChars(args);
 				using (StreamWriter outputFile = new StreamWriter(filePath))
 				{
-					outputFile.WriteLine(args);
+					outputFile.WriteLine(outString);
 				}
 				Environment.Exit(0);
 			}
