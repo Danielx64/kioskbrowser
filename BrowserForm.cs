@@ -5,7 +5,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 using Microsoft.Web.WebView2.Core;
 using System.IO;
 using Microsoft.Web.WebView2.WinForms;
@@ -39,11 +38,9 @@ namespace WebView2WindowsFormsBrowser
 
 			_ = this.webView2Control.EnsureCoreWebView2Async(webView2Environment);
 
-			var args = "";
 			if (Environment.GetCommandLineArgs().Length > 1)
 			{
-				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-				var outString = BrowserForm.RemoveSpecialChars(args);
+				var outString = BrowserForm.RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
 				//Add code to check for gpu pram
 				if (outString.StartsWith("gpu"))
 				{
@@ -140,7 +137,7 @@ namespace WebView2WindowsFormsBrowser
 		public static string RemoveSpecialChars(string str)
 		{
 			// Create  a string array and add the special characters you want to remove
-			string[] chars = new string[] { "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "=", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",","\\"};
+			string[] chars = new string[] { "kioskbrowser", "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "=", "}", "{", "]", "[", "|", "\"", ":", "'", ":", "?", ">", "<", "/", ".", ",","\\"};
 
 			//Iterate the number of times based on the String array length.
 			for (int i = 0; i < chars.Length; i++)

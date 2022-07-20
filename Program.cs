@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
-using System.Text.RegularExpressions;
 using System.Reflection;
 
 [assembly: AssemblyTitle("Your app name here")]
@@ -54,11 +53,8 @@ namespace WebView2WindowsFormsBrowser
 			}
 			else
 			{
-				var args = "";
-
 				string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
-				args = Regex.Replace(Environment.GetCommandLineArgs()[1], @"kioskbrowser:\b", "", RegexOptions.IgnoreCase);
-				var outString = BrowserForm.RemoveSpecialChars(args);
+				var outString = BrowserForm.RemoveSpecialChars(Environment.GetCommandLineArgs()[1]);
 				using (StreamWriter outputFile = new StreamWriter(filePath))
 				{
 					outputFile.WriteLine(outString);
