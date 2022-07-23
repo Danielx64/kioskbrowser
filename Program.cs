@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using System.Reflection;
+using Microsoft.Web.WebView2.Core;
 
 [assembly: AssemblyTitle("Your app name here")]
 //[assembly: AssemblyProduct("1.0.0.0")]
@@ -42,10 +43,19 @@ namespace WebView2WindowsFormsBrowser
 			{
 				try
 				{
+					var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+					// Do something with `version` if needed.
 					Application.SetHighDpiMode(HighDpiMode.SystemAware);
 					Application.EnableVisualStyles();
 					Application.SetCompatibleTextRenderingDefault(false);
 					Application.Run(new BrowserForm());
+				}
+				catch (WebView2RuntimeNotFoundException exception)
+				{
+					// Handle the runtime not being installed.
+					// `exception.Message` is very nicely specific: It (currently at least) says "Couldn't find a compatible Webview2 Runtime installation to host WebViews."
+					MessageBox.Show(exception.Message);
+					Environment.Exit(0);
 				}
 				finally
 				{
