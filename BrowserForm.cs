@@ -9,6 +9,7 @@ using Microsoft.Web.WebView2.Core;
 using System.IO;
 using Microsoft.Web.WebView2.WinForms;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace WebView2WindowsFormsBrowser
 {
@@ -121,10 +122,9 @@ namespace WebView2WindowsFormsBrowser
 
 		private void WebView2Control_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
 		{
-			this.webView2Control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+			this.webView2Control.CoreWebView2.Settings.AreDefaultContextMenusEnabled = true;
 			this.webView2Control.CoreWebView2.Settings.AreDevToolsEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.IsStatusBarEnabled = false;
-			this.webView2Control.CoreWebView2.Settings.UserAgent = $"{Globals.APP_USERAGENT}";
 			this.webView2Control.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.AreHostObjectsAllowed = false;
 			this.webView2Control.CoreWebView2.Settings.IsWebMessageEnabled = false;
@@ -132,6 +132,7 @@ namespace WebView2WindowsFormsBrowser
 			this.webView2Control.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
 			this.webView2Control.CoreWebView2.Settings.IsPasswordAutosaveEnabled = false;
 			this.webView2Control.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+			this.webView2Control.CoreWebView2.ContextMenuRequested += menurequested;
 		}
 		public static string RemoveSpecialChars(string str)
 		{
@@ -148,6 +149,49 @@ namespace WebView2WindowsFormsBrowser
 			}
 			str = str.Replace($"{Globals.URI_SCHEMA}", "");
 			return str;
+		}
+
+		private void menurequested(object sender, CoreWebView2ContextMenuRequestedEventArgs args)
+		{
+
+			IList<CoreWebView2ContextMenuItem> menuList = args.MenuItems;
+			CoreWebView2ContextMenuTargetKind context = args.ContextMenuTarget.Kind;
+			if (context == CoreWebView2ContextMenuTargetKind.Audio)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Image)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Page)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					if (menuList[index].Name != "reload") { menuList.RemoveAt(index); }
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.SelectedText)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					if (menuList[index].Name != "copy" && menuList[index].Name != "paste" && menuList[index].Name != "cut") { menuList.RemoveAt(index); }
+				}
+			}
+			if (context == CoreWebView2ContextMenuTargetKind.Video)
+			{
+				for (int index = menuList.Count - 1; index >= 0; index--)
+				{
+					menuList.RemoveAt(index);
+				}
+			}
+
 		}
 	}
 }
