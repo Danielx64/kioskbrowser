@@ -45,7 +45,7 @@ namespace WebView2WindowsFormsBrowser
 				{
 					var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
 					// Do something with `version` if needed.
-					Application.SetHighDpiMode(HighDpiMode.SystemAware);
+					//Application.SetHighDpiMode(HighDpiMode.SystemAware);
 					Application.EnableVisualStyles();
 					Application.SetCompatibleTextRenderingDefault(false);
 					Application.Run(new BrowserForm());

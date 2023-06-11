@@ -69,7 +69,7 @@ namespace WebView2WindowsFormsBrowser
 				return;
 			}
 			string filePath = @Globals.USER_DATA_FOLDER + @"\temp.txt";
-			using (StreamReader inputFile = new(filePath))
+			using (StreamReader inputFile = new StreamReader(filePath))
 			{
 				if (RemoveSpecialChars(inputFile.ReadToEnd()).StartsWith("gpu"))
 				{
@@ -85,7 +85,7 @@ namespace WebView2WindowsFormsBrowser
 		}
 		void AttachControlEventHandlers()
 		{
-			FileSystemWatcher fileSystemWatcher = new($"{Globals.USER_DATA_FOLDER}");
+			FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($"{Globals.USER_DATA_FOLDER}");
 			var watcher = fileSystemWatcher;
 			watcher.NotifyFilter = NotifyFilters.LastWrite;
 			watcher.Changed += OnChanged;
